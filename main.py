@@ -29,6 +29,26 @@ gear = pygame.image.load('gamepics/gear.png')
 gear = pygame.transform.scale(gear, (50,50))
 astro_icon = pygame.image.load('gamepics/astro_icon.PNG')
 astro_icon = pygame.transform.scale(astro_icon, (50,50))
+BackBTN = pygame.image.load('gamepics/BackBTN.jpg')
+BackBTN = pygame.transform.scale(BackBTN, (200, 70))
+StartBTN = pygame.image.load('gamepics/StartBTN.jpg')
+StartBTN = pygame.transform.scale(StartBTN, (200, 100))
+QuitBTN = pygame.image.load('gamepics/QuitBTN.jpg')
+QuitBTN = pygame.transform.scale(QuitBTN, (200, 100))
+EasyModeBTN = pygame.image.load('gamepics/EasyModeBTN.jpg')
+EasyModeBTN = pygame.transform.scale(EasyModeBTN, (200, 70))
+MediumModeBTN = pygame.image.load('gamepics/MediumModeBTN.jpg')
+MediumModeBTN = pygame.transform.scale(MediumModeBTN, (200, 70))
+HardModeBTN = pygame.image.load('gamepics/HardModeBTN.jpg')
+HardModeBTN = pygame.transform.scale(HardModeBTN, (200, 70))
+FreeModeBTN = pygame.image.load('gamepics/FreeModeBTN.jpg')
+FreeModeBTN = pygame.transform.scale(FreeModeBTN, (200, 70))
+TryAgainBTN = pygame.image.load('gamepics/TryAgainBTN.jpg')
+TryAgainBTN = pygame.transform.scale(TryAgainBTN, (200, 100))
+Titlecard = pygame.image.load('gamepics/Titlecard.jpg')
+Titlecard = pygame.transform.scale(Titlecard, (700, 90))
+MainMenuBTN = pygame.image.load('gamepics/MainMenuBTN.jpg')
+MainMenuBTN = pygame.transform.scale(MainMenuBTN, (200, 100))
 
 
 
@@ -123,7 +143,7 @@ def skin_selection_menu():
             #check if skin is selected
             if skin == selected_skin:
                 pygame.draw.rect(window,GREEN, skin_text_rect.inflate(10,10),3)
-        draw_button("Back", width//2-100, height -100, 200, 50, BLACK)
+        draw_button(BackBTN, width//2-100, height -100, 200, 50)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -411,12 +431,12 @@ def redraw_game_window(lives, hearts, items, asteroids, speed_boosts):
         window.blit(stopwatch_text, (475, 10))
 
     pygame.display.flip() #update the display
-def draw_button(text, x, y, w, h, color):
-    pygame.draw.rect(window, color, (x,y,w,h)) #draw button rectangle
+def draw_button(image, x, y, w, h):
+    ## pygame.draw.rect(window, (x,y,w,h)) #draw button rectangle
 
-    button_text = button_font.render(text, True, WHITE)
-    text_rect = button_text.get_rect(center=(x + w // 2, y + h // 2))
-    window.blit(button_text, text_rect)
+    ## button_text = button_font.render(image, True)
+    ## text_rect = button_text.get_rect(center=(x + w // 2, y + h // 2))
+    window.blit(image, (x, y))
 
 ##################################### MENUS AND SCREENS ##############################
 def settings_menu():
@@ -433,13 +453,13 @@ def settings_menu():
         window.blit(difficulty_text, difficulty_rect)
 
         # Draw buttons for selecting game modes
-        draw_button("Easy", width // 2 - 100, height // 2 - 100, 200, 50, GREEN)
-        draw_button("Medium", width // 2 - 100, height // 2 - 25, 200, 50, BLUE)
-        draw_button("Hard", width // 2 - 100, height // 2 + 50, 200, 50, RED)
-        draw_button("Free Mode", width // 2 - 100, height // 2 + 125, 200, 50, BLACK)
+        draw_button(EasyModeBTN, width // 2 - 100, height // 2 - 100, 200, 50)
+        draw_button(MediumModeBTN, width // 2 - 100, height // 2 - 25, 200, 50)
+        draw_button(HardModeBTN, width // 2 - 100, height // 2 + 50, 200, 50)
+        draw_button(FreeModeBTN, width // 2 - 100, height // 2 + 125, 200, 50)
 
         # Draw back button to return to main menu
-        draw_button("Back", width // 2 - 100, height // 2 + 200, 200, 50, BLACK)
+        draw_button(BackBTN, width // 2 - 100, height // 2 + 200, 200, 50)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -504,9 +524,9 @@ def main_menu():
         draw_scrolling_background()  # Clear the screen
 
         # Draw title
-        title_text = main_font.render("Star Evader", True, WHITE)
-        title_rect = title_text.get_rect(center=(width // 2, height // 4))
-        window.blit(title_text, title_rect)
+        title_image = (Titlecard, True)
+        title_rect = Titlecard.get_rect(center=(width // 2, height // 4))
+        window.blit(Titlecard, title_rect)
 
         # Draw player name
         name_text = name_font.render(f"Player: {player_name}", True, WHITE)
@@ -531,8 +551,8 @@ def main_menu():
         quit_button_rect = pygame.Rect(240, 650, button_width, button_height)
 
         # Draw buttons
-        draw_button("Start", start_button_rect.x, start_button_rect.y, button_width, button_height, BLUE)
-        draw_button("Quit", quit_button_rect.x, quit_button_rect.y, button_width, button_height, RED)
+        draw_button(StartBTN, start_button_rect.x, start_button_rect.y, button_width, button_height)
+        draw_button(QuitBTN, quit_button_rect.x, quit_button_rect.y, button_width, button_height)
         gear_rect = gear.get_rect(center=(width - 60, 60))  # Position at top-right corner
         window.blit(gear, gear_rect)
         astro_icon_rect = astro_icon.get_rect(center=(width-60,110))
@@ -591,9 +611,9 @@ def show_game_over_screen():
     window.blit(game_over_text, game_over_rect)
 
     # draw buttons
-    draw_button("Try Again", width // 2 - 100, height // 2 - 50, 200, 100, BLUE)
-    draw_button("Quit", width // 2 - 100, height // 2 + 50, 200, 100, RED)
-    draw_button("Main Menu", width // 2 - 100, height // 2 + 150, 200, 100, GREEN)
+    draw_button(TryAgainBTN, width // 2 - 100, height // 2 - 50, 200, 100)
+    draw_button(QuitBTN, width // 2 - 100, height // 2 + 50, 200, 100)
+    draw_button(MainMenuBTN, width // 2 - 100, height // 2 + 150, 200, 100)
     # update display to show game over
     pygame.display.flip()
 
@@ -631,9 +651,9 @@ def you_win_screen():
     window.blit(win_text,win_text_rect)
 
     # draw buttons
-    draw_button("Try Again", width // 2 - 100, height // 2 - 50, 200, 100, BLUE)
-    draw_button("Quit", width // 2 - 100, height // 2 + 50, 200, 100, RED)
-    draw_button("Main Menu", width // 2 - 100, height // 2 + 150, 200, 100, GREEN)
+    draw_button(TryAgainBTN, width // 2 - 100, height // 2 - 50, 200, 100)
+    draw_button(QuitBTN, width // 2 - 100, height // 2 + 50, 200, 100)
+    draw_button(MainMenuBTN, width // 2 - 100, height // 2 + 150, 200, 100)
     # update display to show game over
     pygame.display.flip()
 
@@ -870,8 +890,3 @@ def main_game_loop():
 #play music in loop
 pygame.mixer.music.play(-1)
 main_menu()
-
-
-
-
-
